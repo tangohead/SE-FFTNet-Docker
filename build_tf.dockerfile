@@ -15,6 +15,8 @@ COPY config/config_params.json /se-fftnet/config/
 # Overwrite the run script to use python3 and point to the correct dirs
 COPY scripts/generate.sh /se-fftnet/src/
 
+COPY scripts/run_sefftnet.py /se-fftnet/src/
+
 WORKDIR /se-fftnet/src/
 
-CMD [ "sh", "generate.sh", "1" ]
+CMD [ "python3", "run_sefftnet.py" ]
