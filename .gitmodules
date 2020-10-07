@@ -1,0 +1,3 @@
+[submodule "SE-FFTNet-tensorflow-implemenatation"]
+	path = SE-FFTNet-tensorflow-implemenatation
+	url = https://github.com/shifaspv/SE-FFTNet-tensorflow-implemenatation
