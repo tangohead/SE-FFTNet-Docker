@@ -14,13 +14,31 @@ You can build with:
 docker build -t se-fftnet:<version number> -f build_tf.dockerfile .
 ```
 
-Set up a directory for output (called `output` here) and inside that, put a directory called `input`. Put the files you wish to convert in `input`, then run the container, mounting it as below:
+Set up a local directory for output (called `output` here) and inside that, put a directory called `input`. It should look something like this:
+
+```
+output/
+├── input/
+│   ├── input_file_1.wav
+│   ├── input_file_2.wav
+│   ├── input_file_3.wav
+```
+
+If you are happy to mount from your clone of this repo, for example, you could use `/path/to/repo/se-fftnet_output/`.
+
+Put the files you wish to convert in `input`, then run the container, mounting it as below:
 
 ```
 docker container run --runtime=nvidia -v <local path>:/se-fftnet/output/ se-fftnet:<version number>
 ```
 
-Note that this uses the model provided in the SE-FFTNet repo.
+This will run [run_sefftnet.py](scripts/run_sefftnet.py), which will process all files in `input`. 
+
+There is not much in [run_sefftnet.py](scripts/run_sefftnet.py) to change apart from:
+* the path of `config.json` inside the container - though this should not need changing even if you want to edit the config.
+* the model ID, which should not need changing unless you have your own model files.
+
+Note that this setup uses the model provided in the SE-FFTNet repo.
 
 ## Changing the Config
 
