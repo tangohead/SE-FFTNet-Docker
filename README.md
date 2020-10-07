@@ -8,11 +8,9 @@ Requirements:
 
 The container follows the requirements of [SE-FFTNet](https://github.com/shifaspv/SE-FFTNet-tensorflow-implemenatation), so is based on [`tensorflow/tensorflow:1.14.0-gpu-py3`](https://hub.docker.com/layers/tensorflow/tensorflow/1.14.0-gpu-py3/images/sha256-e72e66b3dcb9c9e8f4e5703965ae1466b23fe8cad59e1c92c6e9fa58f8d81dc8?context=explore). 
 
-You can build with:
+Note that this setup uses the model provided in the SE-FFTNet repo.
 
-```
-docker build -t se-fftnet:<version number> -f build_tf.dockerfile .
-```
+## Input and Output
 
 Set up a local directory for output (called `output` here) and inside that, put a directory called `input`. It should look something like this:
 
@@ -26,19 +24,25 @@ output/
 
 If you are happy to mount from your clone of this repo, for example, you could use `/path/to/repo/se-fftnet_output/`.
 
+## Building and Running the Container
+
+You can build with:
+
+```
+docker build -t se-fftnet:<version number> -f build_tf.dockerfile .
+```
+
 Put the files you wish to convert in `input`, then run the container, mounting it as below:
 
 ```
 docker container run --runtime=nvidia -v <local path>:/se-fftnet/output/ se-fftnet:<version number>
 ```
 
-This will run [run_sefftnet.py](scripts/run_sefftnet.py), which will process all files in `input`. 
+This will run [run_sefftnet.py](scripts/run_sefftnet.py), which will process all files in `input`. The python script replaces `generate.sh` in the SE-FFTNet repo to better handle directories.
 
 There is not much in [run_sefftnet.py](scripts/run_sefftnet.py) to change apart from:
 * the path of `config.json` inside the container - though this should not need changing even if you want to edit the config.
 * the model ID, which should not need changing unless you have your own model files.
-
-Note that this setup uses the model provided in the SE-FFTNet repo.
 
 ## Changing the Config
 
